@@ -1,0 +1,48 @@
+name: CI Pipeline (Test)
+
+on:
+  push:
+    branches:
+      - main # Trigger on push to the main branch
+  pull_request:
+    branches:
+      - main # Trigger on PR creation against main branch
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # Use the latest Ubuntu image
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16" # Use the specific version of Node.js for your project
+
+      # Step 3: Install dependencies for /web-app
+      - name: Install dependencies
+        run: |
+          cd web-app
+          npm install
+
+      # Step 4: Run tests for /web-app
+      - name: Run tests
+        run: |
+          cd web-app
+          npm test  # Adjust this command based on your testing setup
+
+      # Step 5: Lint the code (optional but recommended)
+      - name: Lint the code
+        run: |
+          cd web-app
+          npm run lint  # Adjust if you're using a linter like ESLint
+
+      # Step 6: Build the app for /web-app
+      - name: Build the app
+        run: |
+          cd web-app
+          npm run build
