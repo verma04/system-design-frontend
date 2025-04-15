@@ -1,0 +1,4 @@
+{
+  "typescript.tsdk": "./sauvik-website-nextjs/node_modules/typescript/lib",
+  "liveServer.settings.port": 5501
+}
