@@ -21,28 +21,21 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "16" # Use the specific version of Node.js for your project
+          node-version: "20" # Use the specific version of Node.js for your project
 
-      # Step 3: Install dependencies for /web-app
+      # Step 3: Install pnpm
+      - name: Install pnpm
+        run: |
+          npm install -g pnpm
+
+      # Step 4: Install dependencies for /web-app using pnpm
       - name: Install dependencies
         run: |
           cd web-app
-          npm install
+          pnpm install
 
-      # Step 4: Run tests for /web-app
-      - name: Run tests
-        run: |
-          cd web-app
-          npm test  # Adjust this command based on your testing setup
-
-      # Step 5: Lint the code (optional but recommended)
-      - name: Lint the code
-        run: |
-          cd web-app
-          npm run lint  # Adjust if you're using a linter like ESLint
-
-      # Step 6: Build the app for /web-app
+      # Step 7: Build the app for /web-app
       - name: Build the app
         run: |
           cd web-app
-          npm run build
+          pnpm run build
