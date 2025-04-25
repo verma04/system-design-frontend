@@ -1,0 +1,1 @@
+# thrico-admin-dashboard
