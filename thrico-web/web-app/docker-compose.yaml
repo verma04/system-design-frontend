@@ -1,11 +1,19 @@
-version: "3.8"
-
 services:
-  thrico-web:
+  thrico-web-web:
     container_name: thrico-web
     build:
       context: .
       dockerfile: ./docker/prod/Dockerfile-web
+    # assuming your app runs on port 3000 inside the container
+    environment:
+      - NODE_ENV=production
+    networks:
+      - web
+  thrico-web-login:
+    container_name: thrico-login
+    build:
+      context: .
+      dockerfile: ./docker/prod/Dockerfile-login
     # assuming your app runs on port 3000 inside the container
     environment:
       - NODE_ENV=production
