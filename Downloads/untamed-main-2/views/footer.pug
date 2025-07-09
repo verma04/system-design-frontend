@@ -1,0 +1,277 @@
+style.
+  .customMobile,
+  .custom-socialicons {
+    display: none !important;
+  }
+  .footer-v2 {
+    background-color: #f7f3eb;
+    color: #333;
+    font-family: lato-regular;
+    padding: 0px 0px 30px;
+  }
+  .footer-v2 .main-footer {
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+  }
+  h3.footer-heading {
+    font-size: 20px;
+    font-family: 'Playfair Display';
+    color: #333;
+  }
+  .footer-v2 input::placeholder {
+    font-family: 'lato-regular';
+    color: #333;
+  }
+  .footer-v2 ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .footer-v2 ul li {
+    margin-bottom: 8px;
+  }
+  .footer-v2 ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+  }
+  span.newsletter-form {
+    display: none;
+    border: 1px solid #2b2b2b;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+  }
+  .footer-v2 input[type="email"] {
+    width: 90%;
+    padding: 25px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: transparent;
+    border: 0px;
+    font-family: 'lato-regular';
+  }
+  .footer-v2 .social-handels a {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 18px;
+    color: #2b2b2b;
+  }
+  .footer-v2 .logo-section {
+    text-align: center;
+    margin: 40px 0 10px;
+  }
+  .footer-v2 .logo-section img {
+    max-height: 40px;
+  }
+  .footer-v2 .footer-bottom {
+    font-size: 16px;
+    padding-top: 20px;
+  }
+  .footer-v2 .footer-bottom span {
+    color: #333;
+    font-family: 'lato-regular';
+  }
+  .pulseplay-text {
+    text-align: end;
+  }
+  .btn-subscribe {
+    background-color: #EAE2D0;
+    color: #333;
+    border: none;
+    padding: 12px 1px;
+    font-size: 16px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 1px solid #2b2b2b;
+    cursor: pointer;
+    width: 11%;
+  }
+  .btn-subscribe:hover {
+    background-color: #6a246f;
+    color: #fff;
+  }
+  .grecaptcha-badge {
+    visibility: hidden !important;
+  }
+  @media screen and (max-width: 1199px) {
+    .footer-v2 {
+      padding: 30px 0px 80px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .customMobile,
+    .custom-socialicons {
+      display: block !important;
+    }
+    .customDesktop {
+      display: none;
+    }
+    .footer-v2 .footer-bottom,
+    .pulseplay-text {
+      text-align: center;
+    }
+    .footer-v2 ul li {
+      margin-bottom: 3px;
+    }
+    .footer-v2 ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 11px;
+      line-height: normal;
+    }
+    .social-handels {
+      justify-content: center !important;
+    }
+    .customMobile p {
+      font-size: 12px;
+    }
+  }
+
+footer.footer-v2
+  .main-footer.py-3
+    .container
+      .row.gy-4
+        .col-12.col-md-4.col-sm-6.py-3.customMobile
+          h3.footer-heading
+            | Become An
+            strong(style="color:#7f2b8c") 
+              span.fnt_fmly_un UN
+              |  
+              span.tmd TAM3D 
+            | Soul.
+          p Reclaim your glow, your time, your skin - and enjoy 10% off on your first order
+          form#newsletter-form(action="#" method="post" novalidate)
+            span.newsletter-form
+              input#newsletter-email.form-control(type="email" name="EMAIL" placeholder="Email address" required)
+              button.btn-subscribe(type="submit")
+                i.fas.fa-arrow-right
+          p#thank-you-msg(style="display:none; color:#7f2b8c; margin-top:10px;")
+
+        .col-4.col-md-2.col-sm-6.py-3.text-left
+          ul
+            li.footer-nav
+              a(href="https://untam3d.in/pages/about-us") About us
+            li.footer-nav
+              a(href="https://untam3d.in/pages/ingredients") Ingredients
+            li.footer-nav
+              a(href="https://untam3d.in/pages/facts") Facts
+            li.footer-nav
+              a(href="https://untam3d.in/pages/news-articles") News & Articles
+            li.footer-nav
+              a(href="https://untam3d.in/pages/faq") FAQ
+            li.footer-nav
+              a(href="/blogs/blog") Blog
+            li.footer-nav
+              a(href="https://untam3d.in/pages/contact") Contact Us
+
+        .col-4.col-md-3.col-sm-6.py-3.text-left
+          ul
+            li.product-nav
+              a(href="/products/retinol-kakadu-plum-face-serum") Retinol + Kakadu Plum Face Serum
+            li.product-nav
+              a(href="/products/broad-spectrum-sunscreen-spf-50-pa") Broad Spectrum Sunscreen SPF 50, PA+++
+            li.product-nav
+              a(href="/products/day-night-duo?") Day & Night DUO
+
+        .col-4.col-md-3.col-sm-6.py-3.text-left
+          ul
+            li.footer-nav
+              a(href="https://untam3d.in/pages/returns-refund-policy") Returns & Refund Policy
+            li.footer-nav
+              a(href="https://untam3d.in/pages/shipping-policy") Shipping Policy
+            li.footer-nav
+              a(href="https://untam3d.in/pages/payment-options") Payment Policy
+            li.footer-nav
+              a(href="https://untam3d.in/pages/terms-and-conditions") Terms and Conditions
+            li.footer-nav
+              a(href="https://untam3d.in/pages/privacy-policy") Privacy Policy
+            li.footer-nav
+              a(href="https://untam3d.in/pages/disclaimer") Disclaimer
+
+        .col-12.col-md-4.col-sm-6.py-3.customDesktop
+          h3.footer-heading
+            | Become An
+            strong(style="color:#7f2b8c")
+              span.fnt_fmly_un UN
+              span.tmd TAM3D
+            | Soul.
+          p Reclaim your glow, your time, your skin - and enjoy 10% off on your first order
+          form#newsletter-form(action="#" method="post" novalidate)
+            span.newsletter-form
+              input#newsletter-email.form-control(type="email" name="EMAIL" placeholder="Email address" required)
+              button.btn-subscribe(type="submit")
+                i.fas.fa-arrow-right
+          p#thank-you-msg(style="display:none; color:#7f2b8c; margin-top:10px;")
+          .social-handels.d-flex.mt-4
+            a.social-item(href="https://www.instagram.com/untam3d.in/" title="" target="_blank")
+              i.fa.fa-instagram
+            a.social-item(href="https://www.facebook.com/untam3d.in" title="" target="_blank")
+              i.fa.fa-facebook
+            a.social-item(href="https://www.linkedin.com/company/untam3d-in/" title="" target="_blank")
+              i.fa.fa-linkedin-square
+            a.social-item(href="https://www.youtube.com/@untam3d-in" title="" target="_blank")
+              i.fa.fa-youtube-play
+
+      .social-handels.d-flex.mt-4.custom-socialicons
+        a.social-item(href="https://www.instagram.com/untam3d.in/" title="" target="_blank")
+          i.fa.fa-instagram
+        a.social-item(href="https://www.facebook.com/untam3d.in" title="" target="_blank")
+          i.fa.fa-facebook
+        a.social-item(href="https://www.linkedin.com/company/untam3d-in/" title="" target="_blank")
+          i.fa.fa-linkedin-square
+        a.social-item(href="https://www.youtube.com/@untam3d-in" title="" target="_blank")
+          i.fa.fa-youtube-play
+
+      .logo-section
+        img(src="https://cdn.shopify.com/s/files/1/0860/6403/8171/files/Final_Logo_b6a53c84-d96e-455b-83d1-09c500b7d28f.png?v=1724759026" alt="UNTAM3D Logo")
+
+  .copyright-footer
+    .container
+      .footer-bottom
+        .row
+          .col-md-6.col-12.mb-2.mb-md-0
+            span.copyrigt-text
+              | © #{new Date().getFullYear()} — Copyright
+              strong
+                span.fnt_fmly_un UN
+                span.tmd TAM3D
+              | | All Rights Reserved
+          .col-md-6.pulseplay-text.col-12
+            span
+              | Powered by
+              a.text-underline(href="https://pulseplaydigital.com" target="_blank")
+                strong PulsePlay Digital
+
+script.
+  function mailchimpCallback(resp) {
+    const msgContainer = document.getElementById("thank-you-msg");
+    if (resp.result === "success") {
+      msgContainer.innerText =
+        "Thank you! Please check your email and confirm your subscription to complete the process.";
+    } else {
+      msgContainer.innerText =
+        resp.msg || "Oops! Something went wrong or you're already subscribed.";
+    }
+    msgContainer.style.display = "block";
+  }
+
+  document.getElementById("newsletter-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("newsletter-email").value.trim();
+    if (!email) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+    // Remove any previous script tag if present
+    const oldScript = document.getElementById("mc-jsonp");
+    if (oldScript) oldScript.remove();
+
+    const script = document.createElement("script");
+    script.id = "mc-jsonp";
+    script.src =
+      "https://gmail.us19.list-manage.com/subscribe/post-json?u=a91f239d5620ffe317934b663&id=f30e62e6cf&c=mailchimpCallback&EMAIL=" +
+      encodeURIComponent(email);
+    document.body.appendChild(script);
+    this.reset();
+  });

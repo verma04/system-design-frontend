@@ -1,0 +1,57 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Webcam Capture with Face Guide
+
+  body
+    h2 Capture Image from Webcam
+    video#video(width="640", height="480", autoplay, style="display: none;") // Hide the video element
+    canvas#canvas(width="640", height="480") // Canvas shows the video feed and guideline overlay
+    button#capture Capture
+
+    script.
+      // JavaScript to access the webcam and capture the image
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const captureButton = document.getElementById('capture');
+
+      // Access the webcam and display the video feed on the canvas
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          video.srcObject = stream;
+          video.play();
+
+          // Draw the video feed to canvas continuously
+          function drawVideoToCanvas() {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Draw an oval as a face-fitting guideline
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radiusX = 100; // Horizontal radius of the oval
+            const radiusY = 140; // Vertical radius of the oval
+
+            context.lineWidth = 3;
+            context.strokeStyle = 'green';
+
+            context.beginPath();
+            context.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, Math.PI * 2);
+            context.stroke();
+
+            // Continue drawing at 30 frames per second
+            requestAnimationFrame(drawVideoToCanvas);
+          }
+
+          drawVideoToCanvas();
+        })
+        .catch((err) => {
+          console.error("Error accessing webcam: ", err);
+        });
+
+      // Capture the current frame of the video to canvas
+      captureButton.addEventListener('click', () => {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      });

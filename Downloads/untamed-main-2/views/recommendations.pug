@@ -1,0 +1,113 @@
+extends layout.pug
+
+block content
+  .loader-container#loader
+    .loader-bar
+    span.loader-text Your personalized weatherproof report is being prepared
+
+  .recommendations-container(style="display: none;" id="content")
+    .recommendations-header
+      h2 Thank You For The Inputs #{inputs.name.split(" ")[0]}!
+      // p #{JSON.stringify(inputs)}
+      p Your skin is as remarkable as your individuality, and so are these recommendations. Using real-time weather data (Temperature, Humidity, UV Index, Wind, and Pollution levels), along with insights into your skin type and conditions, and expert dermatological advice, we've developed tailored skincare solutions. Our aim is to keep your skin looking healthy and vibrant—ensuring you stay UNTAM3D, no matter how the weather shifts.
+      p We recommend the following ingredients for #{new Date(inputs.date_selector).getDate()}#{new Date().getDate() === 1 ? 'st' : new Date().getDate() === 2 ? 'nd' : new Date().getDate() === 3 ? 'rd' : 'th'} #{new Date().toLocaleString('default', { month: 'long' })} #{new Date().getFullYear()}!
+    .step-indicator
+        span.step 1
+        | Your Skin, Your Journey
+        span.line
+        span.step.active 2
+        | Your SkinSync Report
+
+    h1(style="margin-top: 80px; color: #5F3268") What your face loves
+    .product-recommendations
+      .product-item.cleanser-bg
+        h4 Cleansing Buddy
+        span.cleanser #{output.recommendations.cleanser_with_weather}
+      if output.recommendations.sunscreen.toLowerCase().includes('untam3d')
+        a(href="https://untam3d.in/products/broad-spectrum-sunscreen-spf-50-pa" target="_blank")
+          .product-item.sunscreen-bg
+            h4 Daily Coverage
+            span.sunscreen #{output.recommendations.sunscreen}
+            button#buy-now(style="position: absolute; right: 2px; top: 120px; transform: rotate(-90deg); transform-origin: right bottom;") Buy Now
+      else
+        .product-item.sunscreen-bg
+          h4 Daily Coverage
+          span.sunscreen #{output.recommendations.sunscreen}
+        // https://untam3d.in/products/broad-spectrum-sunscreen-spf-50-pa
+      .product-item.moisturiser-bg
+        h4 Daily Dew
+        span.moisturiser #{output.recommendations.moisturiser_with_weather}
+      if output.recommendations.night_treatment.toLowerCase().includes('untam3d')
+        a(href="https://untam3d.in/products/retinol-kakadu-plum-face-serum" target="_blank")
+          .product-item.night-treatment-bg
+            h4 Night Repair
+            span.night-treatment #{output.recommendations.night_treatment}
+            button#buy-now(style="position: absolute; right: 2px; top: 120px; transform: rotate(-90deg); transform-origin: right bottom;") Buy Now
+      else
+        .product-item.night-treatment-bg
+          h4 Night Repair
+          span.night-treatment #{output.recommendations.night_treatment}
+          // https://untam3d.in/products/retinol-kakadu-plum-face-serum
+
+    .additional
+      .card
+        h3(style="margin-top: 20px; color: #5F3268") What your face dislikes
+        .avoid-info
+            .supplements #{output.recommendations.ingredients_to_avoid_for_your_face}
+      .card
+        h3(style="margin-top: 20px; color: #5F3268") Skin health Supplements
+        .supplements-info
+            .supplements #{output.recommendations.oral_supplements_that_might_help}
+    
+    .disclaimer(style="margin-top: 20px; text-align: center;")
+      p(style="font-size: 12px;")
+        | Disclaimer: The information provided by SkinSyncAI is for general informational purposes only and should not be considered as a substitute for professional medical advice, diagnosis, or treatment. We are not a medical authority, and our recommendations regarding skincare products or dietary suggestions are not to be interpreted as medical advice. These skincare product/ingredient recommendations are based on general knowledge and experience in the field. However, individual results may vary, and there are no guaranteed results from the use of skincare products. We assume no responsibility or liability for any direct, indirect, or consequential damages that may result from the use or reliance upon the information provided. Your use of the information provided by us is solely at your own risk. By accessing or using the information provided by SkinSyncAI, you acknowledge that you have read, understood, and agreed to this medical disclaimer, which includes the absence of guaranteed results.
+    button#download-pdf(style="margin-top: 20px;") Download PDF
+  script.
+    document.addEventListener('DOMContentLoaded', () => {
+      const loader = document.getElementById('loader');
+      const content = document.getElementById('content');
+      const loaderText = document.querySelector('.loader-text');
+
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        content.style.display = 'block';
+      }, 5000); // Simulates a 10-second loading time
+
+      const downloadButton = document.getElementById('download-pdf');
+      downloadButton.addEventListener('click', () => {
+        const element = document.body;
+        const originalWidth = element.style.width;
+        const originalFont = element.style['font-family'];
+        element.style['font-family'] = 'Helvetica,Arial,sans-serif';
+        const fixedWidthPx = 1728;
+        element.style.width = `${fixedWidthPx}px`;
+        const viewportWidth = 1728;
+        const originalViewportWidth = window.innerWidth;
+        window.innerWidth = viewportWidth;
+
+
+        const contentHeight = 2482;
+        const opt = {
+          margin: 0,
+          filename: 'Untam3d_Report.pdf',
+          image: { type: 'jpeg', quality: 1 },
+          html2canvas: { scale: 1, width: fixedWidthPx, height: contentHeight }, // Adjust scale to match viewport width
+          jsPDF: { unit: 'mm', format: [fixedWidthPx / 3.7795, contentHeight / 3.7795], orientation: 'portrait', putOnlyUsedFonts: true } // Convert viewport width to mm
+        };
+        html2pdf().set(opt).from(element).save().then(() => {
+          // Restore the original width of the body after PDF generation
+          element.style.width = originalWidth;
+          element.style['font-family'] = originalFont;
+          window.innerWidth = originalViewportWidth;
+        });
+      });
+    });
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js")
+  style.
+    body {
+      background: linear-gradient(to bottom, #FFFDF9, #F2E7CD, #FDFAF3);
+    }
+    input {
+      background: transparent;
+    }

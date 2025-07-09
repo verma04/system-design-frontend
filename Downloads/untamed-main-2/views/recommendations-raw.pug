@@ -1,0 +1,53 @@
+extends layout.pug
+
+block content
+  .container
+    .main-content
+      h2 SkinSyncAI Recommendation
+      .recommendation-container
+        h3 Recommendations based on #{output.recommendations.city} weather:
+        .weather-info
+          p Humidity:
+          span(class=output.recommendations.humidity) #{output.recommendations.humidity.toUpperCase()}
+          p Temperature:
+          span(class=output.recommendations.temperature) #{output.recommendations.temperature.toUpperCase()}
+          p UV Index:
+          span(class=output.recommendations.uv) #{output.recommendations.uv.toUpperCase()}
+          p Pollution:
+          span(class=output.recommendations.pollution) #{output.recommendations.pollution.toUpperCase()}
+          p Wind:
+          span(class=output.recommendations.wind) #{output.recommendations.wind.toUpperCase()}
+
+        .skin-info
+          p Skin Type:
+          span(class=output.recommendations.skin_type) #{output.recommendations.skin_type.toUpperCase()}
+          p Skin Condition 1:
+          span(class=output.recommendations.skin_condition_1) #{output.recommendations.skin_condition_1.toUpperCase()}
+          if output.recommendations.skin_condition_2
+            p Skin Condition 2:
+            span(class=output.recommendations.skin_condition_2) #{output.recommendations.skin_condition_2.toUpperCase()}
+
+        .product-recommendations
+          h3 Product Recommendations:
+          .product-item
+            p Cleanser with Weather:
+            span.cleanser #{output.recommendations.cleanser_with_weather}
+          .product-item
+            p Moisturiser with Weather:
+            span.moisturiser #{output.recommendations.moisturiser_with_weather}
+          .product-item
+            p Sunscreen:
+            span.sunscreen #{output.recommendations.sunscreen}
+          .product-item
+            p Night Treatment:
+            span.night-treatment #{output.recommendations.night_treatment}
+
+        .avoid-info
+          h3 Ingredients to Avoid for Your Face:
+          p
+          span.avoid #{output.recommendations.ingredients_to_avoid_for_your_face}
+
+        .supplements-info
+          h3 Oral Supplements That Might Help:
+          p
+          span.supplements #{output.recommendations.oral_supplements_that_might_help}

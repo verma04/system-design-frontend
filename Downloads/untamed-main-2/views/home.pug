@@ -1,0 +1,298 @@
+extends layout.pug
+
+block content
+  .container
+    .main-content
+      // Step Indicator
+      .step-indicator
+        span.step.active 1
+        | Your Skin, Your Journey
+        span.line
+        span.step 2
+        | Your SkinSync Report
+
+      form(action="/skin-care-products-recommendation" method="post" enctype="multipart/form-data")
+        label(for="name")
+          span.step 1
+          |  Who do we have the pleasure of meeting *
+        input(type="text" name="name" placeholder="Full Name" required autofocus)
+        
+        label(for="email")
+          span.step 2
+          |  The best email to catch you at mid-glam? *
+        input(type="email" name="email" placeholder="Email" required)
+        
+        label(for="phone")
+          span.step 3
+          |  Got a number where we can text you UNTAM3D tips? *
+        input(type="phone" name="phone" placeholder="Phone" required)
+        
+
+        // Skin Type Checkboxes
+        label(for="skin_type")
+          span.step 4
+          |  Pick your skin's mood (Select one) *
+        div.checkbox-container
+          label
+            input(type="checkbox" name="skin_type" value="normal")
+            | Normal
+          label
+            input(type="checkbox" name="skin_type" value="oily")
+            | Oily
+          label
+            input(type="checkbox" name="skin_type" value="dry")
+            | Dry
+          label
+            input(type="checkbox" name="skin_type" value="combination")
+            | Combination
+          label
+            input(type="checkbox" name="skin_type" value="sensitive")
+            | Sensitive
+        script.
+          document.querySelector('input[name="phone"]').addEventListener('keypress', function(e) {
+              console.log("Logging key", e.key);
+              if (e.key === 'Enter') {
+                setTimeout(() => document.querySelector('input[name="skin_type"][value="dry"]').focus(), 10);
+              }
+            });
+        // Skin Condition Checkboxes
+        label(for="skin_condition")
+          span.step 5
+          |  What's troubling your superstar skin? (Choose your top two concerns) *
+        div.checkbox-container
+          label
+            input(type="checkbox" name="skin_condition" value="acne")
+            | Acne
+          label
+            input(type="checkbox" name="skin_condition" value="redness")
+            | Redness
+          label
+            input(type="checkbox" name="skin_condition" value="dullness")
+            | Dullness
+          label
+            input(type="checkbox" name="skin_condition" value="wrinkles")
+            | Wrinkles
+          label
+            input(type="checkbox" name="skin_condition" value="dark_spots")
+            | Dark Spots
+          label
+            input(type="checkbox" name="skin_condition" value="uneven_skin_tone")
+            | Uneven Skin Tone
+
+        // label(for="face_scan")
+        label(for="face_scan")
+          span.step 6
+          |  Time for your close-up! Clear any eye wear, clear face & go!
+          button(type="button" id="start-camera" style="margin-top: 20px;") TAKE A PHOTO
+        .cam(style="display: none; align-items: center; flex-direction: column;")
+          .camera-container
+            video(id="video" autoplay playsinline width="320" height="240")
+            img(id="captured-image" style="display:none; width: 320px; height: 240px")
+            style.
+              @media (max-width: 768px) {
+                #video, #captured-image {
+                  width: 100%;
+                  height: auto;
+                  object-fit: contain;
+                }
+              }
+          button(type="button" id="capture" style="margin-top: 20px;") CAPTURE
+        canvas(id="canvas" style="display:none;")
+        
+        label(for="city")
+          span.step 7
+          |  Which city gets to admire your glowing presence? *
+        // select(name="city" required)
+        select(name="city" required onchange="document.querySelector('#date_selector').focus()")
+          option(value="") Select the city you need the recommendation for
+          each city in cities
+            option(value=city.value) #{city.city}
+        
+        label(for="date_selector")
+          span.step 8
+          |  Let us get you the best solutions to get your skin weatherproof. Pick a date *
+        input(type="date" id="date_selector" name="date_selector" required)
+        .disclaimer(style="margin-top: 20px; margin-bottom: 20px; text-align: center;")
+          input(type="checkbox" name="accept_terms" required style="display: inline; width: auto; padding: 1px;")
+          .disclaimer-text(style="display: inline;")
+            |  I accept the 
+            span(type="button" id="open-terms" style="margin-top: 20px; color: #5F3268; text-decoration: underline; display: inline;") Terms & Conditions
+
+          // Create the dialog box
+          .dialog#terms-dialog(style="display: none;")
+            .dialog-content
+              span#close-dialog(style="float: right; cursor: pointer;") &times;
+              p(style="font-size: 12px;")
+                | Disclaimer: The information provided by SkinSyncAI is for general informational purposes only and should not be considered as a substitute for professional medical advice, diagnosis, or treatment. We are not a medical authority, and our recommendations regarding skincare products or dietary suggestions are not to be interpreted as medical advice. These skincare product/ingredient recommendations are based on general knowledge and experience in the field. However, individual results may vary, and there are no guaranteed results from the use of skincare products. We assume no responsibility or liability for any direct, indirect, or consequential damages that may result from the use or reliance upon the information provided. Your use of the information provided by us is solely at your own risk. By accessing or using the information provided by SkinSyncAI, you acknowledge that you have read, understood, and agreed to this medical disclaimer, which includes the absence of guaranteed results.
+
+          script.
+            // Get the dialog elements
+            const openTermsButton = document.getElementById('open-terms');
+            const termsDialog = document.getElementById('terms-dialog');
+            const closeDialog = document.getElementById('close-dialog');
+
+            // Open the dialog when the button is clicked
+            openTermsButton.addEventListener('click', () => {
+              termsDialog.style.display = 'block';
+            });
+
+            // Close the dialog when the close button is clicked
+            closeDialog.addEventListener('click', () => {
+              termsDialog.style.display = 'none';
+            });
+
+            // Close the dialog when clicking outside of the dialog content
+            window.addEventListener('click', (event) => {
+              if (event.target === termsDialog) {
+                termsDialog.style.display = 'none';
+              }
+            });
+
+          style.
+            .dialog {
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 80%;
+              max-width: 500px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .dialog-content {
+              background-color: white;
+              padding: 40px 20px 1px 20px;
+              border-radius: 5px;
+              width: 80%;
+              max-width: 500px;
+              position: relative;
+            }
+
+            #close-dialog {
+              font-size: 24px;
+              position: absolute;
+              top: 10px;
+              right: 10px;
+            }
+        script. 
+          const today = new Date();
+          const twoWeeksFromToday = new Date();
+          
+          // Add 14 days to today's date
+          twoWeeksFromToday.setDate(today.getDate() + 14);
+          
+          // Format dates to YYYY-MM-DD
+          const formatDate = (date) => {
+              const year = date.getFullYear();
+              const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+              const day = String(date.getDate()).padStart(2, '0');
+              return `${year}-${month}-${day}`;
+          };
+
+          // Set min and max attributes
+          const dateInput = document.getElementById('date_selector');
+          dateInput.value = formatDate(today);
+          dateInput.min = formatDate(today);
+          dateInput.max = formatDate(twoWeeksFromToday);
+
+          dateInput.addEventListener('change', (event) => {
+            const selectedDate = new Date(event.target.value);
+            if (selectedDate > twoWeeksFromToday || selectedDate < today) {
+              alert('Error: The selected date cannot be more than 14 days from today or less than today.');
+              event.target.value = formatDate(today); // Reset to today's date
+            }
+          });
+
+        button(type="submit") GET RECOMMENDATIONS
+      script.
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('capture');
+        const capturedImage = document.getElementById('captured-image');
+        const startCameraButton = document.getElementById('start-camera');
+        const cam = document.querySelector('.cam');
+        
+        startCameraButton.addEventListener('click', () => {
+          cam.style.display = 'flex';
+          navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => {
+            video.srcObject = stream;
+          })
+          .catch(err => {
+            console.error("Error accessing the webcam: ", err);
+          });
+          startCameraButton.style.display = 'none';
+        });
+        
+        // Capture the image
+        captureButton.addEventListener('click', () => {
+          const context = canvas.getContext('2d');
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          // Convert the image to a data URL
+          const dataURL = canvas.toDataURL('image/png');
+          capturedImage.src = dataURL; // Set the captured image source
+          capturedImage.style.display = 'block'; // Display the image
+
+          // Convert data URL to a Blob
+          const blob = dataURLToBlob(dataURL);
+          const file = new File([blob], 'capture.png', { type: 'image/png' });
+
+          // Append the file to the form data
+          const form = document.querySelector('form');
+          const formData = new FormData(form);
+          formData.append('face_scan', file);
+        });
+
+        function dataURLToBlob(dataURL) {
+          const byteString = atob(dataURL.split(',')[1]);
+          const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+          const ab = new ArrayBuffer(byteString.length);
+          const ia = new Uint8Array(ab);
+          for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+          }
+          return new Blob([ab], { type: mimeString });
+        }
+      script. 
+        document.addEventListener('DOMContentLoaded', function() {
+          // Existing form navigation code...
+
+          // Ensure only one skin_type checkbox is selected
+          const skinTypeCheckboxes = document.querySelectorAll('input[name="skin_type"]');
+          skinTypeCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+              if (this.checked) {
+                skinTypeCheckboxes.forEach(otherCheckbox => {
+                  if (otherCheckbox !== this) {
+                    otherCheckbox.checked = false;
+                  }
+                });
+              }
+            });
+          });
+
+          // Existing form navigation code...
+        });
+        // Allow a maximum of two skin_condition checkboxes to be selected
+        const skinConditionCheckboxes = document.querySelectorAll('input[name="skin_condition"]');
+        skinConditionCheckboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', function() {
+            const checkedCount = Array.from(skinConditionCheckboxes).filter(cb => cb.checked).length;
+            if (checkedCount > 2) {
+              this.checked = false; // Uncheck the current checkbox if more than two are selected
+              alert('You can select a maximum of two skin conditions.');
+            }
+          });
+        });
+  style.
+    body {
+      background: linear-gradient(to bottom, #FFFDF9, #F2E7CD, #FDFAF3);
+    }
+    input {
+      background: transparent;
+    }
